@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
+    "gen": "npx supabase gen types typescript --project-id kjwkqrrkmltjrzhetnji > src/types/supabase.types.ts",
     "test": "echo \"No tests defined\" && exit 0"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@supabase/supabase-js": "^2.49.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.511.0",
@@ -36,9 +38,11 @@
     "@typescript-eslint/parser": "^8.33.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "eslint-plugin-filenames": "^1.3.2",
     "husky": "^8.0.0",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
+    "supabase": "^2.23.4",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.2",
     "typescript": "^5"
