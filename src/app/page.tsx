@@ -1,4 +1,4 @@
-import { MainHeader } from '@/components/main'
+import { HomePage } from '@/components/home'
 
 export const metadate = {
   title: '스페시아',
@@ -8,8 +8,7 @@ export const metadate = {
 export default function Home() {
   return (
     <main className="flex flex-col w-full h-full">
-      <MainHeader />
-      <h1>메인페이지 </h1>
+      <HomePage />
     </main>
   )
 }
