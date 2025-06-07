@@ -100,6 +100,14 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      fontSize: {
+        display: ['2.25rem', { lineHeight: '2.5rem', fontWeight: '700' }], // 36px
+        headline: ['1.875rem', { lineHeight: '2.25rem', fontWeight: '600' }], // 30px
+        title: ['1.5rem', { lineHeight: '2rem', fontWeight: '600' }], // 24px
+        subtitle: ['1.25rem', { lineHeight: '1.75rem', fontWeight: '500' }], // 20px
+        body: ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }], // 16px
+        caption: ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }], // 14px
+      },
     },
   },
 }

@@ -1,5 +1,30 @@
 @import 'tailwindcss';
 @theme {
+  --font-geist-sans:
+    'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+
+  --font-size-display: 2.25rem;
+  --font-size-heading: 1.875rem;
+  --font-size-title: 1.5rem;
+  --font-size-subtitle: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-caption: 0.875rem;
+
+  --font-line-height-display: 2.75rem;
+  --font-line-height-heading: 2.25rem;
+  --font-line-height-title: 2rem;
+  --font-line-height-subtitle: 1.75rem;
+  --font-line-height-body: 1.5rem;
+  --font-line-height-caption: 1.25rem;
+
+  --font-weight-display: 700;
+  --font-weight-heading: 600;
+  --font-weight-title: 600;
+  --font-weight-subtitle: 500;
+  --font-weight-body: 400;
+  --font-weight-caption: 400;
+
   --color-primary-50: oklch(0.97 0.006 249.27);
   --color-primary-100: oklch(0.94 0.012 249.27);
   --color-primary-200: oklch(0.88 0.024 249.27);
