@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
+import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -9,14 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
+        default:
+          'bg-primary-500 text-white shadow-xs hover:bg-primary-400 focus-visible:ring-primary-500/30 dark:focus-visible:ring-primary-500/50 dark:bg-primary-600 dark:hover:bg-primary-500',
         destructive:
-          'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+          'bg-red-600 text-white shadow-xs hover:bg-red-500 focus-visible:ring-red-600/30 dark:focus-visible:ring-red-600/50 dark:bg-red-700 dark:hover:bg-red-600',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
-        secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-        link: 'text-primary underline-offset-4 hover:underline',
+          'border border-gray3 bg-background text-gray8 shadow-xs hover:bg-primary-100 hover:text-primary-700 dark:bg-gray8 dark:text-gray2 dark:border-gray5 dark:hover:bg-gray7',
+        secondary:
+          'bg-secondary-500 text-white shadow-xs hover:bg-secondary-400 focus-visible:ring-secondary-500/30 dark:focus-visible:ring-secondary-500/50 dark:bg-secondary-600 dark:hover:bg-secondary-500',
+        ghost:
+          'hover:bg-accent-100 hover:text-gray9 dark:hover:bg-accent-200 dark:hover:text-white',
+        link: 'text-primary-500 underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
