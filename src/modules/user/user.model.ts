@@ -1,6 +1,7 @@
-import { supabase } from '@/lib'
+import { createClient } from "@/lib"
 
-export const getUser = async (userId: string) => {
+export const getUser = async () => {
+  const supabase = await createClient()
   const {
     data: { user },
     error,
@@ -14,6 +15,7 @@ export const getUser = async (userId: string) => {
 }
 
 export const insertUser = async (userId: string, userData: any) => {
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('users')
     .insert([{ id: userId, ...userData }])
@@ -27,6 +29,8 @@ export const insertUser = async (userId: string, userData: any) => {
 }
 
 export const updateUser = async (userId: string, userData: any) => {
+  const supabase = await createClient()
+
   const { data, error } = await supabase.from('users').update(userData).eq('id', userId).select()
 
   if (error) {

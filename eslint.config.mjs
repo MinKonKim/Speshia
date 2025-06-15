@@ -26,8 +26,21 @@ const eslintConfig = [...compat.extends(
     '@typescript-eslint/no-explicit-any': 'off', // any 타입 허용
     'react/jsx-pascal-case': ['error', { allowAllCaps: true }],
 
-    'filenames/match-regex': ['error', '^[a-z0-9-]+$', true],
+
   },
-}, ...storybook.configs["flat/recommended"], ...storybook.configs["flat/recommended"]]
+  },
+  ...storybook.configs["flat/recommended"],
+  {
+    ignores: [
+      ".next",
+      "node_modules",
+      "dist", 
+      "build",
+      "public",
+    "src/styles",
+    "src/lib",
+  ],
+},
+]
 
 export default eslintConfig
