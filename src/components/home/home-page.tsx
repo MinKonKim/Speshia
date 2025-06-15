@@ -2,10 +2,12 @@
 
 import { MainHeader } from './header'
 
-export const HomePage = () => {
+export const HomePage = ({ user }: { user: any }) => {
   return (
     <div>
       <MainHeader />
+      <h1 className="text-2xl font-bold">홈 페이지</h1>
+      <p className="text-lg">환영합니다, {user?.email || '게스트'}님!</p>
       <div className="bg-primary bg-primary-500 h-2.5 w-full">
         {/* TODO: 공통 스타일링 추가 */}
         <h1 className="title">페이지 타이틀</h1>

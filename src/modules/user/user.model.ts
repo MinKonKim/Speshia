@@ -1,12 +1,12 @@
-import { createClient } from "@/lib"
+import { createClient } from '@/lib'
 
 export const getUser = async () => {
   const supabase = await createClient()
   const {
     data: { user },
     error,
-  } = await supabase.auth.getUser()
-
+  } = await supabase.from('users').select('*').single()
+  console.log('getUser', user)
   if (error) {
     throw new Error(error.message)
   }
