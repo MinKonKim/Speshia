@@ -2,3 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # export PATH="/Users/kimminkon/.nvm/versions/node/v22.15.0/bin:$PATH"
+pnpm lint-staged

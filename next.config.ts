@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  experimental: {
+    appDir: true, // ✅ 정확한 키
+  } as any satisfies NextConfig,
+}
 
-export default nextConfig;
+export default nextConfig
