@@ -1,4 +1,29 @@
 @import 'tailwindcss';
+@layer components {
+  .title {
+    @apply mb-4 text-4xl leading-tight font-bold; /* 행간과 아래 마진 */
+  }
+
+  .text-headline {
+    @apply mb-3 text-2xl leading-snug font-semibold tracking-wide;
+  }
+
+  .text-title {
+    @apply mb-2 text-xl leading-normal font-medium;
+  }
+
+  .text-body {
+    @apply mb-4 text-base leading-relaxed font-normal;
+  }
+
+  .text-caption {
+    @apply text-sm leading-none font-light;
+  }
+
+  .text-gray5 {
+    @apply text-gray-500;
+  }
+}
 @theme {
   --font-geist-sans:
     'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
