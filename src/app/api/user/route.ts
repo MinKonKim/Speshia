@@ -17,7 +17,7 @@ export const GET = async (): Promise<NextResponse> => {
     const errorPayload = {
       data: null,
       status: 500,
-      error: 'Failed to fetch user',
+      error: error,
     }
     return NextResponse.json(errorPayload, {
       status: 500,
