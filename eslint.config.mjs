@@ -36,7 +36,7 @@ const eslintConfig = [
   },
   ...storybook.configs['flat/recommended'],
   {
-    ignores: ['.next', 'node_modules', 'dist', 'build'],
+    ignores: ['.next', 'node_modules', 'dist', 'build', '.storybook'],
   },
 ]
 
