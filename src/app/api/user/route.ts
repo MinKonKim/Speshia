@@ -1,15 +1,15 @@
-import { getUser } from '@/modules/user'
+import { getUserList } from '@/modules/user'
 import { NextResponse } from 'next/server'
 
 export const GET = async (): Promise<NextResponse> => {
   try {
-    const data = await getUser()
+    const data = await getUserList()
     const responsePayload = {
       data,
       status: 200,
       total: 1,
     }
-    return NextResponse.json(responsePayload, {
+    return NextResponse.json(responsePayload.data, {
       status: 200,
     })
   } catch (error) {
