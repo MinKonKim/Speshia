@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui'
-import { CustomDialog } from '@/components/ui/custom-dialog'
+import { Modal } from '@/components/ui/modal'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { useState } from 'react'
 
-const meta: Meta<typeof CustomDialog> = {
-  title: 'UI/CustomDialog',
-  component: CustomDialog,
+const meta: Meta<typeof Modal> = {
+  title: 'UI/ Modal',
+  component: Modal,
   tags: ['autodocs'],
   argTypes: {
     // The story now controls these props internally, so we hide them from the controls panel
@@ -27,14 +27,14 @@ const meta: Meta<typeof CustomDialog> = {
 }
 
 export default meta
-type Story = StoryObj<typeof CustomDialog>
+type Story = StoryObj<typeof Modal>
 
 // Base template for demonstrating the dialog
 const DialogTemplate: Story['render'] = (args) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <CustomDialog
+    <Modal
       {...args}
       open={isOpen}
       onOpenChange={setIsOpen}
@@ -59,7 +59,7 @@ export const WithoutDescription: Story = {
   render: (args) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
-      <CustomDialog
+      <Modal
         {...args}
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -82,7 +82,7 @@ export const WithoutFooter: Story = {
   render: (args) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
-      <CustomDialog
+      <Modal
         {...args}
         open={isOpen}
         onOpenChange={setIsOpen}

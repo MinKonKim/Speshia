@@ -1,7 +1,8 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui'
+import { cn } from '@/lib'
 import { DialogDescription, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
 
-interface CustomDialogProps {
+interface ModalProps {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   trigger?: React.ReactNode
@@ -12,7 +13,7 @@ interface CustomDialogProps {
   className?: string
 }
 
-export function CustomDialog({
+export function Modal({
   open = false,
   onOpenChange,
   trigger,
@@ -21,9 +22,15 @@ export function CustomDialog({
   children,
   footerContent,
   className = '',
-}: CustomDialogProps) {
+}: ModalProps) {
   const content = (
-    <DialogContent className={`max-w-md rounded-lg border-0 bg-white p-6 shadow-lg ${className}`}>
+    <DialogContent
+      className={cn(
+        'max-w-md rounded-lg border-gray-300 bg-white p-6 shadow-lg',
+        'transition duration-100 ease-out',
+        className
+      )}
+    >
       <DialogHeader>
         {title && <DialogTitle className="text-xl font-semibold">{title}</DialogTitle>}
         {description && (

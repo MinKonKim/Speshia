@@ -1,4 +1,4 @@
-import { Button, CustomDialog } from '@/components/ui'
+import { Button, Modal } from '@/components/ui'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
@@ -39,7 +39,7 @@ export function SpaceAddModal() {
   }
 
   return (
-    <CustomDialog
+    <Modal
       open={isOpen}
       onOpenChange={setIsOpen}
       trigger={
@@ -129,6 +129,6 @@ export function SpaceAddModal() {
           />
         </div>
       </div>
-    </CustomDialog>
+    </Modal>
   )
 }
