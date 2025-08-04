@@ -121,3 +121,29 @@ body {
   color: var(--foreground);
   font-family: Pretendard, Helvetica, sans-serif;
 }
+
+/* 전역 스크롤바 커스터마이징 */
+/* 기본: 스크롤바 숨김 */
+.scrollbar-hover::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* 마우스 호버 시: 스크롤바 표시 */
+.scrollbar-hover:hover::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-hover:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 6px;
+  opacity: 0.5;
+}
+
+.scrollbar-hover:hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-overlay {
+  scrollbar-gutter: stable overlay;
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { AdminSidebar } from '@/components/admin/sidebar'
-import { SidebarProvider } from '@/components/ui'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -11,7 +11,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
     <SidebarProvider>
       <AdminSidebar />
-      {children}
+      <main className="h-full w-full">
+        <SidebarTrigger />
+        {children}
+      </main>
     </SidebarProvider>
   )
 }

@@ -1,4 +1,4 @@
-import { createClient } from '@/lib'
+import { createClient } from '@/lib/supabase'
 
 export const getUserList = async () => {
   const supabase = await createClient()
