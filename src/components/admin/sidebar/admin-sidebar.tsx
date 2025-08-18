@@ -7,18 +7,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '@/components/ui'
 import { Calendar, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
 
 export const AdminSidebar = () => {
-  const { open } = useSidebar()
-
+  const basicPath = `/admin/1`
   const items = [
     { title: '예약 현황', url: '#', icon: Calendar },
     { title: '회원 관리', url: '#', icon: Users },
-    { title: '내 공간 관리', url: '/admin/1/my-space', icon: Settings },
+    { title: '내 공간 관리', url: `${basicPath}/my-space`, icon: Settings },
   ]
   return (
     <Sidebar collapsible="icon">
