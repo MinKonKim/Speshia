@@ -1,430 +1,99 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
+  }
   public: {
     Tables: {
-      accounts: {
-        Row: {
-          access_token: string | null
-          expires_at: number | null
-          id: string | null
-          id_token: string | null
-          oauth_token: string | null
-          oauth_token_secret: string | null
-          provider: string | null
-          providerAccountId: string | null
-          refresh_token: string | null
-          scope: string | null
-          session_state: string | null
-          token_type: string | null
-          type: string | null
-          userId: string | null
-        }
-        Insert: {
-          access_token?: string | null
-          expires_at?: number | null
-          id?: string | null
-          id_token?: string | null
-          oauth_token?: string | null
-          oauth_token_secret?: string | null
-          provider?: string | null
-          providerAccountId?: string | null
-          refresh_token?: string | null
-          scope?: string | null
-          session_state?: string | null
-          token_type?: string | null
-          type?: string | null
-          userId?: string | null
-        }
-        Update: {
-          access_token?: string | null
-          expires_at?: number | null
-          id?: string | null
-          id_token?: string | null
-          oauth_token?: string | null
-          oauth_token_secret?: string | null
-          provider?: string | null
-          providerAccountId?: string | null
-          refresh_token?: string | null
-          scope?: string | null
-          session_state?: string | null
-          token_type?: string | null
-          type?: string | null
-          userId?: string | null
-        }
-        Relationships: []
-      }
-      admin: {
-        Row: {
-          business_registration_number: number
-          email: string | null
-        }
-        Insert: {
-          business_registration_number: number
-          email?: string | null
-        }
-        Update: {
-          business_registration_number?: number
-          email?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'admin_email_fkey'
-            columns: ['email']
-            isOneToOne: true
-            referencedRelation: 'users'
-            referencedColumns: ['email']
-          },
-        ]
-      }
-      notifications: {
-        Row: {
-          created_at: string
-          id: number
-          message: string | null
-          method: string | null
-          reservation_id: number | null
-          sent_at: string | null
-          status: string | null
-          type: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          message?: string | null
-          method?: string | null
-          reservation_id?: number | null
-          sent_at?: string | null
-          status?: string | null
-          type?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          message?: string | null
-          method?: string | null
-          reservation_id?: number | null
-          sent_at?: string | null
-          status?: string | null
-          type?: string | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'notifications_reservation_id_fkey'
-            columns: ['reservation_id']
-            isOneToOne: false
-            referencedRelation: 'reservations'
-            referencedColumns: ['id']
-          },
-        ]
-      }
-      payments: {
-        Row: {
-          amount: number | null
-          created_at: string
-          id: number
-          payment_method: string | null
-          status: string | null
-          transaction_id: string
-          user_id: string | null
-          user_ticket_id: number | null
-        }
-        Insert: {
-          amount?: number | null
-          created_at?: string
-          id?: number
-          payment_method?: string | null
-          status?: string | null
-          transaction_id: string
-          user_id?: string | null
-          user_ticket_id?: number | null
-        }
-        Update: {
-          amount?: number | null
-          created_at?: string
-          id?: number
-          payment_method?: string | null
-          status?: string | null
-          transaction_id?: string
-          user_id?: string | null
-          user_ticket_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'payments_user_ticket_id_fkey'
-            columns: ['user_ticket_id']
-            isOneToOne: false
-            referencedRelation: 'user_tickets'
-            referencedColumns: ['id']
-          },
-        ]
-      }
-      reservations: {
-        Row: {
-          created_at: string
-          end_time: string
-          id: number
-          space_id: number | null
-          start_time: string
-          status: string | null
-          updated_at: string | null
-          user_id: string
-          user_ticket_id: number | null
-        }
-        Insert: {
-          created_at?: string
-          end_time: string
-          id?: number
-          space_id?: number | null
-          start_time: string
-          status?: string | null
-          updated_at?: string | null
-          user_id: string
-          user_ticket_id?: number | null
-        }
-        Update: {
-          created_at?: string
-          end_time?: string
-          id?: number
-          space_id?: number | null
-          start_time?: string
-          status?: string | null
-          updated_at?: string | null
-          user_id?: string
-          user_ticket_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'reservations_space_id_fkey'
-            columns: ['space_id']
-            isOneToOne: false
-            referencedRelation: 'spaces'
-            referencedColumns: ['id']
-          },
-          {
-            foreignKeyName: 'reservations_user_ticket_id_fkey'
-            columns: ['user_ticket_id']
-            isOneToOne: false
-            referencedRelation: 'user_tickets'
-            referencedColumns: ['id']
-          },
-        ]
-      }
-      sessions: {
-        Row: {
-          expires: string | null
-          id: string | null
-          sessionToken: string | null
-          userId: string | null
-        }
-        Insert: {
-          expires?: string | null
-          id?: string | null
-          sessionToken?: string | null
-          userId?: string | null
-        }
-        Update: {
-          expires?: string | null
-          id?: string | null
-          sessionToken?: string | null
-          userId?: string | null
-        }
-        Relationships: []
-      }
-      space_availability: {
-        Row: {
-          day_of_week: number | null
-          end_time: string
-          id: number
-          is_available: boolean | null
-          space_id: number | null
-          start_time: string
-        }
-        Insert: {
-          day_of_week?: number | null
-          end_time: string
-          id?: number
-          is_available?: boolean | null
-          space_id?: number | null
-          start_time: string
-        }
-        Update: {
-          day_of_week?: number | null
-          end_time?: string
-          id?: number
-          is_available?: boolean | null
-          space_id?: number | null
-          start_time?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'space_availability_space_id_fkey'
-            columns: ['space_id']
-            isOneToOne: false
-            referencedRelation: 'spaces'
-            referencedColumns: ['id']
-          },
-        ]
-      }
       spaces: {
         Row: {
-          address: string | null
-          business_registration_number: number | null
-          created_at: string | null
+          admin_id: string | null
+          created_at: string
           description: string | null
           id: number
           is_active: boolean | null
-          max_capacity: number | null
-          name: string
+          max_capacity: string | null
+          name: string | null
           updated_at: string | null
         }
         Insert: {
-          address?: string | null
-          business_registration_number?: number | null
-          created_at?: string | null
+          admin_id?: string | null
+          created_at?: string
           description?: string | null
           id?: number
           is_active?: boolean | null
-          max_capacity?: number | null
-          name?: string
+          max_capacity?: string | null
+          name?: string | null
           updated_at?: string | null
         }
         Update: {
-          address?: string | null
-          business_registration_number?: number | null
-          created_at?: string | null
+          admin_id?: string | null
+          created_at?: string
           description?: string | null
           id?: number
           is_active?: boolean | null
-          max_capacity?: number | null
-          name?: string
+          max_capacity?: string | null
+          name?: string | null
           updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'spaces_business_registration_number_fkey'
-            columns: ['business_registration_number']
-            isOneToOne: false
-            referencedRelation: 'admin'
-            referencedColumns: ['business_registration_number']
-          },
-        ]
-      }
-      tickets: {
-        Row: {
-          created_at: string
-          id: number
-          name: string
-          price: number
-          type: string | null
-          value: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          name: string
-          price: number
-          type?: string | null
-          value?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          name?: string
-          price?: number
-          type?: string | null
-          value?: string | null
         }
         Relationships: []
       }
-      user_tickets: {
-        Row: {
-          created_at: string
-          expires_at: string | null
-          id: number
-          payment_status: string | null
-          purchased_at: string | null
-          remaining_value: number
-          ticket_id: number
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          expires_at?: string | null
-          id?: number
-          payment_status?: string | null
-          purchased_at?: string | null
-          remaining_value: number
-          ticket_id: number
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          expires_at?: string | null
-          id?: number
-          payment_status?: string | null
-          purchased_at?: string | null
-          remaining_value?: number
-          ticket_id?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'user_tickets_ticket_id_fkey'
-            columns: ['ticket_id']
-            isOneToOne: false
-            referencedRelation: 'tickets'
-            referencedColumns: ['id']
-          },
-        ]
-      }
       users: {
         Row: {
+          b_r_num: number | null
           created_at: string
           email: string
-          emailVerified: string | null
           id: number
+          is_admin: boolean | null
           name: string | null
-          notification_preference: string | null
-          password: string | null
+          notification_preference:
+            | Database["public"]["Enums"]["notification_type"]
+            | null
           phone: string | null
-          profile_image: string | null
-          provider: string | null
-          role: string | null
-          updated_at: string | null
+          provider: Database["public"]["Enums"]["provider_type"] | null
+          role: Database["public"]["Enums"]["role_type"]
+          updated_at: string
           user_id: string
         }
         Insert: {
+          b_r_num?: number | null
           created_at?: string
           email: string
-          emailVerified?: string | null
           id?: number
+          is_admin?: boolean | null
           name?: string | null
-          notification_preference?: string | null
-          password?: string | null
+          notification_preference?:
+            | Database["public"]["Enums"]["notification_type"]
+            | null
           phone?: string | null
-          profile_image?: string | null
-          provider?: string | null
-          role?: string | null
-          updated_at?: string | null
+          provider?: Database["public"]["Enums"]["provider_type"] | null
+          role?: Database["public"]["Enums"]["role_type"]
+          updated_at?: string
           user_id: string
         }
         Update: {
+          b_r_num?: number | null
           created_at?: string
           email?: string
-          emailVerified?: string | null
           id?: number
+          is_admin?: boolean | null
           name?: string | null
-          notification_preference?: string | null
-          password?: string | null
+          notification_preference?:
+            | Database["public"]["Enums"]["notification_type"]
+            | null
           phone?: string | null
-          profile_image?: string | null
-          provider?: string | null
-          role?: string | null
-          updated_at?: string | null
+          provider?: Database["public"]["Enums"]["provider_type"] | null
+          role?: Database["public"]["Enums"]["role_type"]
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -437,7 +106,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      roles: 'USER' | 'ADMIN'
+      notification_type: "email" | "sms" | "none"
+      provider_type: "email" | "google" | "github"
+      role_type: "user" | "admin" | "superadmin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -445,27 +116,33 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, 'public'>]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
-    | { schema: keyof Database },
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-        Database[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-      Database[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
-    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -474,21 +151,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
-    | { schema: keyof Database },
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -497,21 +176,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
-    | { schema: keyof Database },
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -519,37 +200,45 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums'] | { schema: keyof Database },
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
-    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema['CompositeTypes']
-    | { schema: keyof Database },
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
-    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
   public: {
     Enums: {
-      roles: ['USER', 'ADMIN'],
+      notification_type: ["email", "sms", "none"],
+      provider_type: ["email", "google", "github"],
+      role_type: ["user", "admin", "superadmin"],
     },
   },
 } as const

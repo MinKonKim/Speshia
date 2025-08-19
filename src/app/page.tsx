@@ -4,10 +4,5 @@ export const metadate = {
 }
 
 export default async function Home() {
-  return (
-    <main className="flex h-full w-full flex-col">
-      <h1 className="text-2xl font-bold">홈 페이지</h1>
-      {/* <HomePage user={user} /> */}
-    </main>
-  )
+  return <main className="flex h-full w-full flex-col"></main>
 }
