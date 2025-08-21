@@ -1,6 +1,7 @@
 'use client'
 
 import SocialButton from '@/components/auth/social-button'
+import { Separator } from '@radix-ui/react-context-menu'
 import { signIn, useSession } from 'next-auth/react'
 
 function SigninPage() {
@@ -14,12 +15,14 @@ function SigninPage() {
     console.log(signInRes)
   }
   return (
-    <div>
-      <h2 className="font-display text-secondary-500 font-serif text-5xl">
+    <div className="flex flex-col items-center gap-5">
+      <h2 className="font-display text-secondary-500 p-4 font-serif text-5xl">
         간편하게 로그인 할 수 있어요!
       </h2>
+
       {!session && (
-        <div>
+        <div className="flex flex-col gap-2">
+          <Separator className="text-secondary-200 my-4 w-full border-1" />
           <SocialButton social={'google'} onClick={() => handleButtonClick('google')} />
           <SocialButton social={'naver'} onClick={() => handleButtonClick('naver')} />
           <SocialButton social={'kakao'} onClick={() => handleButtonClick('kakao')} />
