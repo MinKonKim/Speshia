@@ -85,7 +85,8 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['Pretendard', 'Inter', 'sans-serif'], // 예: 인터 폰트
+        sans: ['var(--font-noto-sans)', 'Pretendard'],
+        serif: ['var(--font-noto-serif-kr)'],
       },
       keyframes: {
         'accordion-down': {
