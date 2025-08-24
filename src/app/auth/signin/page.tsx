@@ -22,7 +22,7 @@ function SigninPage() {
 
       {!session && (
         <div className="flex flex-col gap-2">
-          <Separator className="text-secondary-200 my-4 w-full border-1" />
+          <Separator className="w-full" />
           <SocialButton social={'google'} onClick={() => handleButtonClick('google')} />
           <SocialButton social={'naver'} onClick={() => handleButtonClick('naver')} />
           <SocialButton social={'kakao'} onClick={() => handleButtonClick('kakao')} />
