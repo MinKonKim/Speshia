@@ -30,7 +30,7 @@ export const authOptions: AuthOptions = {
         token.provider = account.provider
       }
       try {
-        console.log('user', user)
+        console.log('user', user) // TODO: 어딘지는 모르겠는데, user가 undefined가 되는 경우가 있음
         await userApi.createUser({
           name: user?.name || '',
           email: user?.email || '',
