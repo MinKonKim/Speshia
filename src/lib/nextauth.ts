@@ -2,6 +2,8 @@ import { AuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import KakaoProvider from 'next-auth/providers/kakao'
 import NaverProvider from 'next-auth/providers/naver'
+import { userApi } from './api/user-api'
+import { transforomToProviderEnum } from './utils'
 
 export const authOptions: AuthOptions = {
   pages: {
@@ -22,15 +24,28 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, user, account }) {
       if (account) {
         token.accessToken = account.access_token
+        token.provider = account.provider
+      }
+      try {
+        console.log('user', user)
+        await userApi.createUser({
+          name: user?.name || '',
+          email: user?.email || '',
+          provider: transforomToProviderEnum(token.provider),
+        })
+      } catch (error) {
+        console.error('DB에 저장 실패: ', error)
       }
       return token
     },
     async session({ session, token }) {
       if (token.accessToken) {
-        session.user.accessToken = token.accessToken // 클라이언트에서 사용 가능
+        session.user.accessToken = token.accessToken
+        session.user.provider = token.provider
+        session.user.id = token.userId as string
       }
       return session
     },
