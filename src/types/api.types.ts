@@ -4,8 +4,9 @@ export type ApiResponse<T> = {
   error?: string // Optional error message if the request failed
   total?: number // Optional total count for paginated responses
 }
-export type ApiResponsePromise<T> = Promise<ApiResponse<T>>
 
 export type ApiDefault = {
   message: string
 }
+
+export type ApiResponsePromise<T> = Promise<ApiResponse<T | ApiDefault>>
