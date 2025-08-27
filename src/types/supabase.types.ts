@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      hosts: {
+        Row: {
+          account_number: string | null
+          business_number: string | null
+          contact: string | null
+          created_at: string
+          document: string | null
+          id: number
+          user_id: string
+        }
+        Insert: {
+          account_number?: string | null
+          business_number?: string | null
+          contact?: string | null
+          created_at?: string
+          document?: string | null
+          id?: number
+          user_id: string
+        }
+        Update: {
+          account_number?: string | null
+          business_number?: string | null
+          contact?: string | null
+          created_at?: string
+          document?: string | null
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "host_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       spaces: {
         Row: {
           admin_id: string | null
@@ -23,6 +61,7 @@ export type Database = {
           is_active: boolean | null
           max_capacity: string | null
           name: string | null
+          status: Database["public"]["Enums"]["space_status"]
           updated_at: string | null
         }
         Insert: {
@@ -33,6 +72,7 @@ export type Database = {
           is_active?: boolean | null
           max_capacity?: string | null
           name?: string | null
+          status?: Database["public"]["Enums"]["space_status"]
           updated_at?: string | null
         }
         Update: {
@@ -43,17 +83,17 @@ export type Database = {
           is_active?: boolean | null
           max_capacity?: string | null
           name?: string | null
+          status?: Database["public"]["Enums"]["space_status"]
           updated_at?: string | null
         }
         Relationships: []
       }
       users: {
         Row: {
-          b_r_num: number | null
           created_at: string
           email: string
           id: number
-          is_admin: boolean | null
+          is_host: boolean | null
           name: string | null
           notification_preference:
             | Database["public"]["Enums"]["notification_type"]
@@ -65,11 +105,10 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          b_r_num?: number | null
           created_at?: string
           email: string
           id?: number
-          is_admin?: boolean | null
+          is_host?: boolean | null
           name?: string | null
           notification_preference?:
             | Database["public"]["Enums"]["notification_type"]
@@ -81,11 +120,10 @@ export type Database = {
           user_id: string
         }
         Update: {
-          b_r_num?: number | null
           created_at?: string
           email?: string
           id?: number
-          is_admin?: boolean | null
+          is_host?: boolean | null
           name?: string | null
           notification_preference?:
             | Database["public"]["Enums"]["notification_type"]
@@ -109,6 +147,7 @@ export type Database = {
       notification_type: "email" | "sms" | "none"
       provider_type: "email" | "google" | "github"
       role_type: "user" | "admin" | "superadmin"
+      space_status: "pending" | "rejected" | "approved"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -239,6 +278,7 @@ export const Constants = {
       notification_type: ["email", "sms", "none"],
       provider_type: ["email", "google", "github"],
       role_type: ["user", "admin", "superadmin"],
+      space_status: ["pending", "rejected", "approved"],
     },
   },
 } as const
