@@ -22,19 +22,17 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = token.sub!
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token
       }
       return token
     },
     async session({ session, token }) {
-      if (token?.id) {
-        // 세션에 user.id 넣어주기
-        session.user.id = token.sub!
+      if (token.accessToken) {
+        session.user.accessToken = token.accessToken // 클라이언트에서 사용 가능
       }
       return session
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
 }
