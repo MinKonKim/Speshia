@@ -2,7 +2,7 @@ import { getUserList, insertUser, UserDataDto, UserDataInsertDto } from '@/modul
 import { ApiDefault, ApiResponsePromise } from '@/types'
 import { NextRequest } from 'next/server'
 
-export const GET = async (): ApiResponsePromise<UserDataDto[] | null> => {
+export const GET = async (): ApiResponsePromise<UserDataDto[] | ApiDefault> => {
   try {
     const data = await getUserList()
     return {
@@ -13,7 +13,7 @@ export const GET = async (): ApiResponsePromise<UserDataDto[] | null> => {
   } catch (error) {
     console.error('Error fetching user:', error)
     return {
-      data: null,
+      data: { message: '유저 목록 불러오기 중 오류 발생' },
       status: 500,
       error: error instanceof Error ? error.message : String(error),
     }
@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest): ApiResponsePromise<ApiDefault> => 
       name,
       email,
       provider,
-      is_host: false,
+      is_admin: false,
       role: 'user',
     }
 

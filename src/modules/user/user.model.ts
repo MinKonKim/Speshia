@@ -3,7 +3,7 @@ import { UserDataInsertDto } from './user.dto'
 
 export const getUserList = async () => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('users').select('*').single()
+  const { data, error } = await supabase.from('users').select('*')
   console.log('getUser', data)
   if (error) {
     throw new Error(error.message)

@@ -14,7 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      hosts: {
+      admins: {
         Row: {
           account_number: string | null
           business_number: string | null
@@ -93,7 +93,7 @@ export type Database = {
           created_at: string
           email: string
           id: number
-          is_host: boolean | null
+          is_admin: boolean | null
           name: string | null
           notification_preference:
             | Database["public"]["Enums"]["notification_type"]
@@ -108,7 +108,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: number
-          is_host?: boolean | null
+          is_admin?: boolean | null
           name?: string | null
           notification_preference?:
             | Database["public"]["Enums"]["notification_type"]
@@ -123,7 +123,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: number
-          is_host?: boolean | null
+          is_admin?: boolean | null
           name?: string | null
           notification_preference?:
             | Database["public"]["Enums"]["notification_type"]
