@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase'
+import { UserDataInsertDto } from './user.dto'
 
 export const getUserList = async () => {
   const supabase = await createClient()
@@ -11,11 +12,11 @@ export const getUserList = async () => {
   return data
 }
 
-export const insertUser = async (userId: string, userData: any) => {
+export const insertUser = async (userData: UserDataInsertDto) => {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('users')
-    .insert([{ id: userId, ...userData }])
+    .insert([{ ...userData }])
     .select()
 
   if (error) {

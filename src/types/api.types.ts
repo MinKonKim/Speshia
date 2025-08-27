@@ -5,3 +5,7 @@ export type ApiResponse<T> = {
   total?: number // Optional total count for paginated responses
 }
 export type ApiResponsePromise<T> = Promise<ApiResponse<T>>
+
+export type ApiDefault = {
+  message: string
+}

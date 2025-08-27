@@ -1,26 +1,50 @@
-import { getUserList } from '@/modules/user'
-import { NextResponse } from 'next/server'
+import { getUserList, insertUser, UserDataDto, UserDataInsertDto } from '@/modules/user'
+import { ApiDefault, ApiResponsePromise } from '@/types'
+import { NextRequest } from 'next/server'
 
-export const GET = async (): Promise<NextResponse> => {
+export const GET = async (): ApiResponsePromise<UserDataDto[] | null> => {
   try {
     const data = await getUserList()
-    const responsePayload = {
+    return {
       data,
       status: 200,
-      total: 1,
+      total: data.length,
     }
-    return NextResponse.json(responsePayload.data, {
-      status: 200,
-    })
   } catch (error) {
     console.error('Error fetching user:', error)
-    const errorPayload = {
+    return {
       data: null,
       status: 500,
-      error: error,
+      error: error instanceof Error ? error.message : String(error),
     }
-    return NextResponse.json(errorPayload, {
+  }
+}
+
+export const POST = async (req: NextRequest): ApiResponsePromise<ApiDefault> => {
+  try {
+    const { name, email, image, provider } = await req.json()
+    const userData: UserDataInsertDto = {
+      name,
+      email,
+      provider,
+      is_host: false,
+      role: 'user',
+    }
+
+    await insertUser(userData)
+
+    // ApiResponse 형태에 맞춰 반환
+    return {
+      data: { message: '유저 데이터 성공적으로 입력완료!!' },
+      status: 200,
+    }
+  } catch (error) {
+    console.error('Error inserting user:', error)
+
+    return {
+      data: { message: '유저 데이터 입력 중 오류 발생' },
       status: 500,
-    })
+      error: error instanceof Error ? error.message : String(error),
+    }
   }
 }
