@@ -117,7 +117,7 @@ export type Database = {
           provider?: Database["public"]["Enums"]["provider_type"] | null
           role?: Database["public"]["Enums"]["role_type"]
           updated_at?: string
-          user_id: string
+          user_id?: string
         }
         Update: {
           created_at?: string
