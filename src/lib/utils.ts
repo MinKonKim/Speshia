@@ -12,7 +12,7 @@ export const gesSession = async () => {
   return await getServerSession(authOptions)
 }
 
-export const transforomToProviderEnum = (provider?: string): ProviderEnum | null => {
+export const transformToProviderEnum = (provider?: string): ProviderEnum | null => {
   if (provider === 'google' || provider === 'kakao' || provider === 'naver') {
     return provider as ProviderEnum
   }

@@ -1,38 +1,40 @@
 'use client'
-
-import { Button } from '@/components/ui'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui'
+import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SearchBar } from './search-bar'
+import { UserNav } from './user-nav'
 
-// --- Sub-components for maintainability ---
-
-const Logo = () => (
-  <div className="relative h-20 w-28">
-    <Link href="/">
-      <Image
-        src="/images/logo_speshia-transparent.png"
-        alt="Speshia Logo"
-        layout="fill"
-        objectFit="contain"
-      />
-    </Link>
-  </div>
-)
+// --- Reusable Components ---
 
 const navLinks = [
   { href: '#', label: '예약하기' },
-  { href: '#', label: '관리자' },
+  { href: '/admin/dashboard/1', label: '관리자' }, // temp adminId
   { href: '#', label: 'About' },
 ]
 
-const Navigation = () => (
-  <nav className="hidden gap-6 md:flex">
+const Logo = () => (
+  <Link href="/" className="relative h-16 w-28 flex-shrink-0">
+    <Image
+      src="/images/logo_speshia-transparent.png"
+      alt="Speshia Logo"
+      layout="fill"
+      objectFit="contain"
+      priority
+    />
+  </Link>
+)
+
+// --- Desktop Navigation ---
+
+const DesktopNav = () => (
+  <nav className="hidden items-center gap-6 md:flex">
     {navLinks.map((link) => (
       <Link
         key={link.label}
         href={link.href}
-        className="text-sm font-medium text-gray-600 hover:text-gray-900"
+        className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
       >
         {link.label}
       </Link>
@@ -40,44 +42,63 @@ const Navigation = () => (
   </nav>
 )
 
-const AuthButton = () => {
-  const { data: session, status } = useSession()
-  const isLoading = status === 'loading'
+// --- Mobile Navigation ---
 
-  if (isLoading) {
-    return <div className="h-8 w-20 animate-pulse rounded-md bg-gray-200"></div>
-  }
-
-  if (session) {
-    return (
-      <>
-        <span className="text-sm text-gray-700">Welcome, {session.user?.name ?? 'User'}</span>
-        <Button variant="outline" size="sm" onClick={() => signOut()}>
-          Logout
+const MobileNav = () => (
+  <div className="md:hidden">
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Menu className="h-6 w-6" />
+          <span className="sr-only">Open menu</span>
         </Button>
-      </>
-    )
-  }
-
-  return (
-    <Button size="sm" onClick={() => signIn()}>
-      Login
-    </Button>
-  )
-}
+      </SheetTrigger>
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>
+            <Logo />
+          </SheetTitle>
+        </SheetHeader>
+        <nav className="mt-8 flex flex-col gap-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="text-lg font-medium text-gray-700 hover:text-blue-600"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="mt-auto">
+          <Button className="w-full">내 공간 등록하기</Button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  </div>
+)
 
 // --- Main Header Component ---
 
 export default function MainHeader() {
   return (
-    <header className="w-full border-b border-gray-200 bg-white">
-      <div className="container mx-auto flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-white/80 shadow-sm backdrop-blur-sm">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Logo />
-          <Navigation />
+          <DesktopNav />
         </div>
+
+        <SearchBar />
+
         <div className="flex items-center gap-4">
-          <AuthButton />
+          <div className="hidden md:block">
+            <Button>내 공간 등록하기</Button>
+          </div>
+          <div className="hidden md:block">
+            <UserNav />
+          </div>
+          <MobileNav />
         </div>
       </div>
     </header>

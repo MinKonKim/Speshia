@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import KakaoProvider from 'next-auth/providers/kakao'
 import NaverProvider from 'next-auth/providers/naver'
 import { userApi } from './api/user-api'
-import { transforomToProviderEnum } from './utils'
+import { transformToProviderEnum } from './utils'
 
 export const authOptions: AuthOptions = {
   pages: {
@@ -28,13 +28,21 @@ export const authOptions: AuthOptions = {
       if (account) {
         token.accessToken = account.access_token
         token.provider = account.provider
+        token.picture = user.image
+      }
+      if (!user || !user.name || !user.email) {
+        return token
       }
       try {
-        console.log('user', user) // TODO: 어딘지는 모르겠는데, user가 undefined가 되는 경우가 있음
+        console.log('[TOKEN] User : ', user)
+        const provider = transformToProviderEnum(token.provider)
+        if (!provider) {
+          throw new Error('Invalid provider')
+        }
         await userApi.createUser({
-          name: user?.name || '',
-          email: user?.email || '',
-          provider: transforomToProviderEnum(token.provider),
+          name: user.name,
+          email: user.email,
+          provider,
         })
       } catch (error) {
         console.error('DB에 저장 실패: ', error)
@@ -46,6 +54,7 @@ export const authOptions: AuthOptions = {
         session.user.accessToken = token.accessToken
         session.user.provider = token.provider
         session.user.id = token.userId as string
+        session.user.image = token.picture
       }
       return session
     },
