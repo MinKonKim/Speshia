@@ -1,6 +1,6 @@
-'use client'
 import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui'
 import { Menu } from 'lucide-react'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SearchBar } from './search-bar'
@@ -13,6 +13,14 @@ const navLinks = [
   { href: '/admin/dashboard/1', label: '관리자' }, // temp adminId
   { href: '#', label: 'About' },
 ]
+
+const handleMySpaceButtonClick = async () => {
+  const session = await getServerSession()
+  if (session?.user.accessToken) {
+    // Redirect to the space registration page if the user is authenticated
+    window.location.href = '/spaces/new'
+  }
+}
 
 const Logo = () => (
   <Link href="/" className="relative h-16 w-28 flex-shrink-0">
@@ -71,7 +79,9 @@ const MobileNav = () => (
           ))}
         </nav>
         <div className="mt-auto">
-          <Button className="w-full">내 공간 등록하기</Button>
+          <Button className="w-full" onClick={handleMySpaceButtonClick}>
+            내 공간 등록하기
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
@@ -79,7 +89,7 @@ const MobileNav = () => (
 )
 
 // --- Main Header Component ---
-
+//TODO: [다음작업]공간 등록 페이지 링크 연결하기
 export default function MainHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 shadow-sm backdrop-blur-sm">
@@ -93,7 +103,7 @@ export default function MainHeader() {
 
         <div className="flex items-center gap-4">
           <div className="hidden md:block">
-            <Button>내 공간 등록하기</Button>
+            <Button onClick={handleMySpaceButtonClick}>내 공간 등록하기</Button>
           </div>
           <div className="hidden md:block">
             <UserNav />

@@ -22,6 +22,7 @@ export type Database = {
           created_at: string
           document: string | null
           id: number
+          settlement_verify: boolean | null
           user_id: string
         }
         Insert: {
@@ -31,6 +32,7 @@ export type Database = {
           created_at?: string
           document?: string | null
           id?: number
+          settlement_verify?: boolean | null
           user_id: string
         }
         Update: {
@@ -40,6 +42,7 @@ export type Database = {
           created_at?: string
           document?: string | null
           id?: number
+          settlement_verify?: boolean | null
           user_id?: string
         }
         Relationships: [
@@ -145,8 +148,8 @@ export type Database = {
     }
     Enums: {
       notification_type: "email" | "sms" | "none"
-      provider_type: "email" | "google" | "github"
-      role_type: "user" | "admin" | "superadmin"
+      provider_type: "kakao" | "google" | "naver"
+      role_type: "user" | "host" | "admin"
       space_status: "pending" | "rejected" | "approved"
     }
     CompositeTypes: {
@@ -276,8 +279,8 @@ export const Constants = {
   public: {
     Enums: {
       notification_type: ["email", "sms", "none"],
-      provider_type: ["email", "google", "github"],
-      role_type: ["user", "admin", "superadmin"],
+      provider_type: ["kakao", "google", "naver"],
+      role_type: ["user", "host", "admin"],
       space_status: ["pending", "rejected", "approved"],
     },
   },

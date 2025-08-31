@@ -1,18 +1,20 @@
-import { UserDataDto, UserDataInsertDto } from '@/modules/user'
-import { ApiResponsePromise } from '@/types'
+import { UserDataDto, UserDataInsertDto, UserDataUpdateDto } from '@/modules/user'
 import { apiClient } from './core/axios'
 
 export class UserApi {
   private client = apiClient
 
-  async getUserList(): ApiResponsePromise<UserDataDto[]> {
+  async getUserList(): Promise<UserDataDto[]> {
     const res = await this.client.get<UserDataDto[]>('/users')
-    return { data: res.data, status: res.status }
+    return res.data
   }
 
-  async createUser(payload: UserDataInsertDto): ApiResponsePromise<UserDataDto> {
-    const res = await this.client.post<UserDataDto>('/users', payload)
-    return { data: res.data, status: res.status }
+  async createUser(payload: UserDataInsertDto) {
+    await this.client.post<UserDataDto>('/users', payload)
+  }
+
+  async updateUser(email: string, payload: UserDataUpdateDto) {
+    await this.client.patch<UserDataDto>(`/users/${email}`, payload)
   }
 }
 
