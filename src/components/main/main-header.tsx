@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SearchBar } from './search-bar'
-import { UserNav } from './user-nav'
+import { UserNav } from '../shared/user-nav'
 
 // --- Reusable Components ---
 

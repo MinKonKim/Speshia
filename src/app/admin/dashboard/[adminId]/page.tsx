@@ -1,9 +1,15 @@
 import { AdminHeader } from '@/components/admin/header'
 
-export default function AdminDashboardPage() {
+const AdminDashboardPage = () => {
   return (
-    <main className="flex h-full w-full flex-col">
+    <div>
       <AdminHeader />
-    </main>
+      <div className="p-4">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <p>Welcome to your dashboard.</p>
+      </div>
+    </div>
   )
 }
+
+export default AdminDashboardPage
