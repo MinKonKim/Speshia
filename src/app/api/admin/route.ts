@@ -1,12 +1,8 @@
-import { NextResponse } from 'next/server'
-import axios from 'axios'
+import { NextRequest, NextResponse } from 'next/server'
 import { ApiDefault, ApiResponsePromise } from '@/types'
-import { AdminInsertDto, insertAdmin } from '@/modules/admin'
+import { AdminDto, AdminInsertDto, getAdminDataById, insertAdmin } from '@/modules/admin'
 
-// TODO: 실제 DB 연결 로직 (예: Prisma, Supabase) 추가 필요
-// import { db } from '@/lib/db'
-
-export async function POST(req: Request): ApiResponsePromise<ApiDefault> {
+export const POST = async (req: Request): ApiResponsePromise<ApiDefault> => {
   try {
     const { businessNumber, userId } = await req.json()
 
@@ -59,5 +55,16 @@ export async function POST(req: Request): ApiResponsePromise<ApiDefault> {
       { success: false, message: '서버 오류가 발생했습니다.' },
       { status: 500 }
     )
+  }
+}
+
+export const GET = async (req: NextRequest): ApiResponsePromise<AdminDto> => {
+  try {
+    const { adminId } = await req.json()
+    const res = await getAdminDataById(adminId)
+    return NextResponse.json(res, { status: 200 })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json({ message: '관리자 정보 조회 중 에러 발생!' }, { status: 500 })
   }
 }
