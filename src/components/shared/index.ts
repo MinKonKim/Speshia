@@ -1,1 +1,1 @@
-export * from './error-tooltip'
+export * from './validate-tooltip'

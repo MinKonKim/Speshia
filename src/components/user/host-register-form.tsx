@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { ValidationTooltip } from '../shared'
 import {
   Button,
   Form,
@@ -20,7 +21,7 @@ const hostRegisterFormSchema = z.object({
   businessName: z.string().min(1, {
     message: '사업자명을 입력해주세요.',
   }),
-  contact: z.string(),
+  contact: z.string().min(10, { message: '연락처를 입력해주세요.' }),
 })
 
 export function HostRegisterForm() {
@@ -48,12 +49,14 @@ export function HostRegisterForm() {
         <FormField
           control={form.control}
           name="businessName"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel>이름</FormLabel>
-              <FormControl>
-                <Input placeholder="사업자명을 입력해주세요." {...field} />
-              </FormControl>
+              <ValidationTooltip message={fieldState.error?.message}>
+                <FormControl>
+                  <Input placeholder="사업자명을 입력해주세요." {...field} />
+                </FormControl>
+              </ValidationTooltip>
               <FormDescription>사업자 명 입력</FormDescription>
               <FormMessage />
             </FormItem>
@@ -62,12 +65,14 @@ export function HostRegisterForm() {
         <FormField
           control={form.control}
           name="contact"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel>전화번호</FormLabel>
-              <FormControl>
-                <Input placeholder="전화번호을 입력해주세요." {...field} />
-              </FormControl>
+              <ValidationTooltip message={fieldState.error?.message}>
+                <FormControl>
+                  <Input placeholder="전화번호을 입력해주세요." {...field} />
+                </FormControl>
+              </ValidationTooltip>
               <FormDescription>전화번호 입력</FormDescription>
               <FormMessage />
             </FormItem>
