@@ -1,10 +1,11 @@
+'use client'
 import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui'
 import { Menu } from 'lucide-react'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SearchBar } from './search-bar'
 import { UserNav } from '../shared/user-nav'
+import { SearchBar } from './search-bar'
 
 // --- Reusable Components ---
 
