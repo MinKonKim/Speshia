@@ -7,6 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui'
 import { Calendar, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
@@ -20,7 +21,7 @@ export const AdminSidebar = () => {
   ]
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent>
+      <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarHeader>
             <Image src="/images/logo_speshia.png" width={100} height={200} alt="대표이미지" />
@@ -30,9 +31,11 @@ export const AdminSidebar = () => {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="hover:bg-gray-100">
-                    <a href={item.url} className="flex items-center justify-between">
-                      <item.icon size={64} strokeWidth={1.8} />
-                      <span className="text-lg">{item.title}</span>
+                    <a href={item.url} className="flex items-center justify-start">
+                      <item.icon size={64} strokeWidth={1.8} className="w-5" />
+                      <div className="flex w-full justify-center">
+                        <span className="text-lg">{item.title}</span>
+                      </div>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
