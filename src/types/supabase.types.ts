@@ -135,17 +135,10 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-<<<<<<< HEAD
-      notification_type: "email" | "sms" | "none"
-      provider_type: "kakao" | "google" | "naver"
-      role_type: "user" | "host" | "admin"
-      space_status: "pending" | "rejected" | "approved"
-=======
       notification_type: 'email' | 'sms' | 'none'
       provider_type: 'kakao' | 'google' | 'naver'
       role_type: 'user' | 'host' | 'admin'
       space_status: 'pending' | 'rejected' | 'approved'
->>>>>>> 77d45c06c73cfd48b6abf98d8dbc5bddf72c42d5
     }
     CompositeTypes: {
       [_ in never]: never
@@ -271,17 +264,10 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-<<<<<<< HEAD
-      notification_type: ["email", "sms", "none"],
-      provider_type: ["kakao", "google", "naver"],
-      role_type: ["user", "host", "admin"],
-      space_status: ["pending", "rejected", "approved"],
-=======
       notification_type: ['email', 'sms', 'none'],
       provider_type: ['kakao', 'google', 'naver'],
       role_type: ['user', 'host', 'admin'],
       space_status: ['pending', 'rejected', 'approved'],
->>>>>>> 77d45c06c73cfd48b6abf98d8dbc5bddf72c42d5
     },
   },
 } as const

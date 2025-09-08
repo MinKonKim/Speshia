@@ -1,49 +1,30 @@
 import { createClient } from '@/lib/supabase'
 import { UserDataDto, UserDataInsertDto } from './user.dto'
+import { SupabaseResponse } from '@/types'
 
-export const getUserList = async () => {
+export const getUserList = async (): SupabaseResponse<UserDataDto> => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('users').select('*')
-  console.log('getUser', data)
-  if (error) {
-    return { error: error.message }
-  }
-
-  return data as UserDataDto[]
+  return supabase.from('users').select('*')
 }
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string): SupabaseResponse<UserDataDto> => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('users').select('*').eq('email', email).single()
-  if (error) {
-    return { error: error.message }
-  }
-
-  return data as UserDataDto
+  return supabase.from('users').select('*').eq('email', email).single()
 }
 
-export const insertUser = async (userData: UserDataInsertDto) => {
+export const insertUser = async (userData: UserDataInsertDto): SupabaseResponse<UserDataDto> => {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  return supabase
     .from('users')
     .upsert([{ ...userData }], { onConflict: 'email' })
     .select()
-
-  if (error) {
-    console.log('insertUser error', error)
-    return { error: error.message }
-  }
-  return data
 }
 
-export const updateUser = async (email: string, userData: UserDataInsertDto) => {
+export const updateUser = async (
+  email: string,
+  userData: UserDataInsertDto
+): SupabaseResponse<UserDataDto> => {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.from('users').update(userData).eq('email', email).select()
-
-  if (error) {
-    return { error: error.message }
-  }
-
-  return data
+  return supabase.from('users').update(userData).eq('email', email).select()
 }

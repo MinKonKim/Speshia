@@ -4,6 +4,8 @@ import { getServerSession } from 'next-auth'
 import { twMerge } from 'tailwind-merge'
 import { authOptions } from './nextauth'
 
+// 범용 헬퍼 함수
+
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs))
 }
