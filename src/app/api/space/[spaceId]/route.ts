@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { ApiResponsePromise } from '@/types'
 import { getSpaceInfo, SpaceDto } from '@/modules/space'
+import { ApiResponsePromise } from '@/types'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const GET = async (
   request: NextRequest,

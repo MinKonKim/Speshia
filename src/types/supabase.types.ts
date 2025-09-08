@@ -55,6 +55,35 @@ export type Database = {
           },
         ]
       }
+      space_images: {
+        Row: {
+          created_at: string
+          file_path: string | null
+          id: number
+          space_id: number
+        }
+        Insert: {
+          created_at?: string
+          file_path?: string | null
+          id?: number
+          space_id: number
+        }
+        Update: {
+          created_at?: string
+          file_path?: string | null
+          id?: number
+          space_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "spaces_images_space_id_fkey"
+            columns: ["space_id"]
+            isOneToOne: false
+            referencedRelation: "spaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       spaces: {
         Row: {
           address: string | null
@@ -98,35 +127,6 @@ export type Database = {
             columns: ["admin_id"]
             isOneToOne: false
             referencedRelation: "admins"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      spaces_images: {
-        Row: {
-          created_at: string
-          file_path: string | null
-          id: number
-          space_id: number
-        }
-        Insert: {
-          created_at?: string
-          file_path?: string | null
-          id?: number
-          space_id: number
-        }
-        Update: {
-          created_at?: string
-          file_path?: string | null
-          id?: number
-          space_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "spaces_images_space_id_fkey"
-            columns: ["space_id"]
-            isOneToOne: false
-            referencedRelation: "spaces"
             referencedColumns: ["id"]
           },
         ]

@@ -1,5 +1,5 @@
-import { getSpaceListByAdminId } from '@/modules/space/space.model'
 import { SpaceListDto } from '@/modules/space/space.dto'
+import { getSpaceListByAdminId } from '@/modules/space/space.model'
 import { ApiResponsePromise } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
