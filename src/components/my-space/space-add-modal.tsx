@@ -1,42 +1,57 @@
-import { Button, Modal } from '@/components/ui'
+'use client'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Modal } from '@/components/ui/modal'
 import { Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 
 export function SpaceAddModal() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    phone: '',
-    message: '',
+    description: '',
+    address: '',
+    maxCapacity: '',
   })
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImageFile(e.target.files[0])
+    }
   }
 
   const handleSave = () => {
-    if (formData.name && formData.email) {
-      const newEntry = {
-        ...formData,
-        id: Date.now(),
-        createdAt: new Date().toLocaleString('ko-KR'),
-      }
-      // Logic to actually save the data would go here, e.g., calling an API.
-      console.log('Saved Data:', newEntry)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-      })
-      setIsOpen(false)
+    // 필수 필드 검증 (예: 이름, 주소, 최대인원)
+    if (!formData.name || !formData.address || !formData.maxCapacity) {
+      alert('필수 항목을 모두 입력해주세요.')
+      return
     }
+
+    const newEntry = {
+      ...formData,
+      image: imageFile,
+      id: Date.now(),
+      createdAt: new Date().toLocaleString('ko-KR'),
+    }
+
+    // 실제 데이터 저장 로직 (API 호출 등)은 여기에 구현합니다.
+    console.log('Saved Data:', newEntry)
+
+    // 상태 초기화 및 모달 닫기
+    setFormData({ name: '', description: '', address: '', maxCapacity: '' })
+    setImageFile(null)
+    setIsOpen(false)
   }
+
+  const isSaveDisabled = !formData.name || !formData.address || !formData.maxCapacity
 
   return (
     <Modal
@@ -48,85 +63,78 @@ export function SpaceAddModal() {
           공간 추가
         </Button>
       }
-      title="정보 입력"
-      description="아래 양식을 작성해 주세요. 이름과 이메일은 필수 항목입니다."
+      title="새 공간 추가"
+      description="아래 양식을 작성하여 새로운 공간을 등록하세요."
       footerContent={
-        <>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="rounded-md border border-gray-300 px-4 py-2 text-gray-600 transition-colors hover:bg-gray-50"
-          >
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setIsOpen(false)}>
             취소
-          </button>
-          <button
-            onClick={handleSave}
-            disabled={!formData.name || !formData.email}
-            className="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-          >
+          </Button>
+          <Button onClick={handleSave} disabled={isSaveDisabled}>
             저장
-          </button>
-        </>
+          </Button>
+        </div>
       }
     >
-      <div className="space-y-4">
-        <div>
-          <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
-            이름 *
-          </label>
-          <input
-            type="text"
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="name" className="text-right">
+            공간 이름
+          </Label>
+          <Input
             id="name"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="이름을 입력하세요"
+            className="col-span-3"
+            placeholder="예: 스페시아 강남점"
           />
         </div>
-
-        <div>
-          <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
-            이메일 *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="이메일을 입력하세요"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="mb-1 block text-sm font-medium text-gray-700">
-            전화번호
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="전화번호를 입력하세요"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="message" className="mb-1 block text-sm font-medium text-gray-700">
-            메시지
-          </label>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="description" className="text-right">
+            공간 설명
+          </Label>
           <textarea
-            id="message"
-            name="message"
-            value={formData.message}
+            id="description"
+            name="description"
+            value={formData.description}
             onChange={handleInputChange}
-            rows={3}
-            className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="메시지를 입력하세요"
+            className="col-span-3"
+            placeholder="공간에 대한 설명을 입력하세요."
           />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="address" className="text-right">
+            공간 주소
+          </Label>
+          <Input
+            id="address"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+            className="col-span-3"
+            placeholder="정확한 주소를 입력하세요."
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="maxCapacity" className="text-right">
+            최대 인원수
+          </Label>
+          <Input
+            id="maxCapacity"
+            name="maxCapacity"
+            type="number"
+            value={formData.maxCapacity}
+            onChange={handleInputChange}
+            className="col-span-3"
+            placeholder="숫자만 입력"
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="image" className="text-right">
+            공간 이미지
+          </Label>
+          <Input id="image" type="file" onChange={handleFileChange} className="col-span-3" />
         </div>
       </div>
     </Modal>

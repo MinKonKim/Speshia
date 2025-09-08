@@ -58,36 +58,36 @@ export type Database = {
       spaces: {
         Row: {
           address: string | null
-          admin_id: number | null
+          admin_id: number
           created_at: string
           description: string | null
           id: number
-          is_active: boolean | null
-          max_capacity: string | null
+          is_active: boolean
+          max_capacity: number | null
           name: string | null
           status: Database["public"]["Enums"]["space_status"]
           updated_at: string | null
         }
         Insert: {
           address?: string | null
-          admin_id?: number | null
+          admin_id: number
           created_at?: string
           description?: string | null
           id?: number
-          is_active?: boolean | null
-          max_capacity?: string | null
+          is_active: boolean
+          max_capacity?: number | null
           name?: string | null
           status?: Database["public"]["Enums"]["space_status"]
           updated_at?: string | null
         }
         Update: {
           address?: string | null
-          admin_id?: number | null
+          admin_id?: number
           created_at?: string
           description?: string | null
           id?: number
-          is_active?: boolean | null
-          max_capacity?: string | null
+          is_active?: boolean
+          max_capacity?: number | null
           name?: string | null
           status?: Database["public"]["Enums"]["space_status"]
           updated_at?: string | null

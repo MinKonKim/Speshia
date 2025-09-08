@@ -1,3 +1,4 @@
+'use client'
 import {
   Table,
   TableBody,
@@ -18,8 +19,9 @@ export function MySpaceTable({ spaceList }: MySpaceTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px] text-center">번호</TableHead>
-          <TableHead className="w-[200px]">이름</TableHead>
+          <TableHead className="w-[200px]">공간 이름</TableHead>
           <TableHead className="w-[400px]">주소</TableHead>
+          <TableHead className="w-[100px] text-center">상태</TableHead>
           <TableHead className="w-[120px] text-center">최대인원</TableHead>
         </TableRow>
       </TableHeader>
@@ -33,8 +35,9 @@ export function MySpaceTable({ spaceList }: MySpaceTableProps) {
             <TableCell className="text-center">{index + 1}</TableCell>
             <TableCell className="font-medium">{space.name}</TableCell>
             <TableCell className="scrollbar-hover max-w-[400px] overflow-x-auto pb-2 whitespace-nowrap">
-              {space.description}
+              {space.address}
             </TableCell>
+            <TableCell className="text-center font-bold">{space.status}</TableCell>
             <TableCell className="text-center">{space.max_capacity}명</TableCell>
           </TableRow>
         ))}
