@@ -1,19 +1,17 @@
-'use client'
-
 import { AdminSidebar } from '@/components/admin/sidebar/admin-sidebar'
 import { SidebarProvider } from '@/components/ui'
 
 interface AdminLayoutProps {
   children: React.ReactNode
+  params: { adminId: string }
 }
 
-const AdminLayout = ({ children }: AdminLayoutProps) => {
+export default async function AdminLayout({ children, params }: AdminLayoutProps) {
+  const { adminId } = await params
   return (
     <SidebarProvider>
-      <AdminSidebar />
+      <AdminSidebar adminId={adminId} />
       <main className="h-full w-full">{children}</main>
     </SidebarProvider>
   )
 }
-
-export default AdminLayout

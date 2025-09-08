@@ -14,9 +14,14 @@ import {
 import { Separator } from '@radix-ui/react-context-menu'
 import { Calendar, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
-export const AdminSidebar = () => {
-  const basicPath = `/admin/1`
+interface AdminSidebarProps {
+  adminId: string
+}
+
+export function AdminSidebar({ adminId }: AdminSidebarProps) {
+  const basicPath = `/admin/${adminId}`
   const items = [
     { title: '예약 현황', url: '#', icon: Calendar },
     { title: '회원 관리', url: '#', icon: Users },
@@ -30,7 +35,9 @@ export const AdminSidebar = () => {
             <SidebarTrigger size="lg" />
           </div>
           <SidebarHeader className="">
-            <Image src="/images/logo_speshia.svg" width={150} height={150} alt="대표이미지" />
+            <Link href={`${basicPath}/dashboard`}>
+              <Image src="/images/logo_speshia.svg" width={150} height={150} alt="대표이미지" />
+            </Link>
           </SidebarHeader>
           <SidebarGroupContent className="text-secondary-950 mt-5 flex h-full flex-col justify-between">
             <SidebarMenu>
