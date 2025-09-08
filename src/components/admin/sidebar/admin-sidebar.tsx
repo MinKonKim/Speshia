@@ -1,14 +1,17 @@
+import { UserNav } from '@/components/shared/user-nav'
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+  SidebarTrigger,
 } from '@/components/ui'
+import { Separator } from '@radix-ui/react-context-menu'
 import { Calendar, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
 
@@ -20,13 +23,16 @@ export const AdminSidebar = () => {
     { title: '내 공간 관리', url: `${basicPath}/my-space`, icon: Settings },
   ]
   return (
-    <Sidebar collapsible="icon">
-      <SidebarContent className="bg-white">
-        <SidebarGroup>
-          <SidebarHeader>
-            <Image src="/images/logo_speshia.png" width={100} height={200} alt="대표이미지" />
+    <Sidebar collapsible="icon" className="border-none">
+      <SidebarContent className="bg-secondary-200 h-full">
+        <SidebarGroup className="h-full">
+          <div className="flex w-full justify-end">
+            <SidebarTrigger size="lg" />
+          </div>
+          <SidebarHeader className="">
+            <Image src="/images/logo_speshia.svg" width={150} height={150} alt="대표이미지" />
           </SidebarHeader>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="text-secondary-950 mt-5 flex h-full flex-col justify-between">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
@@ -41,6 +47,12 @@ export const AdminSidebar = () => {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
+            <SidebarFooter className="mx-0 mb-2 w-full px-0">
+              <Separator className="w-full border border-gray-200" />
+              <div className="flex items-center justify-end">
+                <UserNav />
+              </div>
+            </SidebarFooter>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
