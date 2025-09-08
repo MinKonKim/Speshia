@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
-import { UserNav } from '../shared/user-nav'
+import { UserNav } from '../shared'
 import { SearchBar } from './search-bar'
 
 // --- Reusable Components ---

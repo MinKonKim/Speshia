@@ -1,4 +1,4 @@
-import { UserNav } from '@/components/shared/user-nav'
+import { UserNav } from '@/components/shared'
 import {
   Sidebar,
   SidebarContent,

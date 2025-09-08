@@ -1,8 +1,6 @@
 import { Database } from '@/types'
 
-type Spaces = Database['public']['Tables']['spaces']
-
-export type SpaceDto = Spaces['Row']
+export type SpaceDto = Database['public']['Tables']['spaces']['Row']
 export type SpaceListDto = SpaceDto[] | []
-export type SpaceInsertDto = Spaces['Insert']
-export type SpaceUpdateDto = Spaces['Update']
+
+export type SpaceInsertDto = Database['public']['Tables']['spaces']['Insert']

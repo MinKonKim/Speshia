@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
-export function UserNav() {
+export default function UserNav() {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {

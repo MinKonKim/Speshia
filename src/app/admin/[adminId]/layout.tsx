@@ -11,7 +11,7 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
   return (
     <SidebarProvider>
       <AdminSidebar adminId={adminId} />
-      <main className="h-full w-full">{children}</main>
+      <main className="h-full w-full p-4">{children}</main>
     </SidebarProvider>
   )
 }

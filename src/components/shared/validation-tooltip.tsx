@@ -7,7 +7,7 @@ interface ValidationTooltipProps {
   open?: boolean
 }
 
-export function ValidationTooltip({ children, message, open }: ValidationTooltipProps) {
+export default function ValidationTooltip({ children, message, open }: ValidationTooltipProps) {
   if (!message) return <>{children}</>
 
   return (

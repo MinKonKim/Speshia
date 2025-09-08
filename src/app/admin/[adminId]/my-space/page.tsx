@@ -10,7 +10,7 @@ export default async function AdminMySpacePage({ params }: AdminMySpacePageProps
   const { adminId } = params
   const spaceList = await spaceApi.getSpaceListByAdminId(adminId)
   return (
-    <MySpaceComponent>
+    <MySpaceComponent adminId={adminId}>
       <MySpaceTable spaceList={spaceList} />
     </MySpaceComponent>
   )

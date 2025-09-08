@@ -17,12 +17,18 @@ import {
   FormMessage,
   Input,
 } from '../ui'
+
 const hostRegisterFormSchema = z.object({
   businessName: z.string().min(1, {
     message: '사업자명을 입력해주세요.',
   }),
   contact: z.string().min(10, { message: '연락처를 입력해주세요.' }),
 })
+
+/**
+ *
+ * @returns 호스트 등록 폼
+ */
 
 export function HostRegisterForm() {
   const session = useSession()
