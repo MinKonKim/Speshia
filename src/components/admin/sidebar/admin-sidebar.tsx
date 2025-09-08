@@ -40,7 +40,7 @@ export const AdminSidebar = () => {
                     <a href={item.url} className="flex items-center justify-start">
                       <item.icon size={64} strokeWidth={1.8} className="w-5" />
                       <div className="flex w-full justify-center">
-                        <span className="text-lg">{item.title}</span>
+                        <span className="text-lg font-semibold">{item.title}</span>
                       </div>
                     </a>
                   </SidebarMenuButton>
