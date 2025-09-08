@@ -1,11 +1,14 @@
+import { SpaceImageDto } from '@/modules/space/image'
 import { apiClient } from './core/axios'
 
 class SpaceImageApi {
   private client = apiClient
-  async getSpaceImages(spaceId: string): Promise<string[]> {
-    const res = await this.client.get<string[]>(`/space/${spaceId}/images`)
+
+  async getSpaceImages(spaceId: string): Promise<SpaceImageDto[]> {
+    const res = await this.client.get<SpaceImageDto[]>(`/space/${spaceId}/images`)
     return res.data
   }
+
   async uploadSpaceImage(
     spaceId: string,
     file: File

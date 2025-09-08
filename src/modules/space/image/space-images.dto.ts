@@ -1,4 +1,5 @@
-import { Database } from '@/types'
+import { Tables, TablesInsert } from '@/types'
 
-export type SpaceImageDto = Database['public']['Tables']['space_images']['Row']
+export type SpaceImageDto = Tables<'space_images'> & { url: string }
 export type SpaceImageListDto = SpaceImageDto[] | []
+export type SpaceImageInsertDto = TablesInsert<'space_images'>

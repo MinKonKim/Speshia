@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase'
+import { SpaceImageDto } from './space-images.dto'
 
-export const saveSpaceImages = async (spaceId: string, file: File) => {
+export const saveSpaceImages = async (spaceId: number, file: File): Promise<string> => {
   const supabase = await createClient()
   const filePath = `spaces/${spaceId}/${file.name}`
   // 1. 스토리지에 업로드
@@ -13,7 +14,7 @@ export const saveSpaceImages = async (spaceId: string, file: File) => {
   }
 
   // 2. DB에 파일 경로 기록
-  const { error: dbError } = await supabase.from('spaces_images').insert([
+  const { error: dbError } = await supabase.from('space_images').upsert([
     {
       space_id: spaceId,
       image_path: filePath,
@@ -28,9 +29,9 @@ export const saveSpaceImages = async (spaceId: string, file: File) => {
 }
 
 // 공간의 이미지 목록 불러오기
-export const getSpaceImages = async (spaceId: number) => {
+export const getSpaceImages = async (spaceId: number): Promise<SpaceImageDto[]> => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('spaces_images').select('*').eq('space_id', spaceId)
+  const { data, error } = await supabase.from('space_images').select('*').eq('spce_id ', spaceId)
   if (error) {
     throw new Error('🚫공간 이미지를 불러오는데 실패했습니다!: ' + error.message)
   }
@@ -41,7 +42,7 @@ export const getSpaceImages = async (spaceId: number) => {
   }))
 }
 
-export const deleteSpaceImage = async (imageId: string) => {
+export const deleteSpaceImage = async (imageId: number): Promise<boolean> => {
   const supabase = await createClient()
 
   // 1. DB에서 file_path 가져오기

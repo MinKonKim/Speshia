@@ -1,7 +1,7 @@
-import { Database } from '@/types'
+import { Database, Tables, TablesInsert, TablesUpdate } from '@/types'
 
-export type UserDataDto = Database['public']['Tables']['users']['Row']
-export type UserDataInsertDto = Database['public']['Tables']['users']['Insert']
-export type UserDataUpdateDto = Database['public']['Tables']['users']['Update']
+export type UserDataDto = Tables<'users'>
+export type UserDataInsertDto = TablesInsert<'users'>
+export type UserDataUpdateDto = TablesUpdate<'users'>
 
 export type ProviderEnum = Database['public']['Enums']['provider_type']

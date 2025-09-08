@@ -1,7 +1,5 @@
-import { Database } from '@/types'
+import { Tables, TablesInsert, TablesUpdate } from '@/types'
 
-type AdminTable = Database['public']['Tables']['admins']
-
-export type AdminDto = AdminTable['Row']
-export type AdminInsertDto = AdminTable['Insert']
-export type AdminUpdateDto = AdminTable['Update']
+export type AdminDto = Tables<'admins'>
+export type AdminInsertDto = TablesInsert<'admins'>
+export type AdminUpdateDto = TablesUpdate<'admins'>
