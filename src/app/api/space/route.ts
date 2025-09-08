@@ -1,9 +1,9 @@
 import { getSpaceListByAdminId } from '@/modules/space/space.model'
-import { SpaceDto } from '@/modules/space/space.dto'
+import { SpaceListDto } from '@/modules/space/space.dto'
 import { ApiResponsePromise } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const GET = async (request: NextRequest): ApiResponsePromise<SpaceDto[]> => {
+export const GET = async (request: NextRequest): ApiResponsePromise<SpaceListDto> => {
   const { searchParams } = new URL(request.url)
   const adminId = searchParams.get('adminId')
 

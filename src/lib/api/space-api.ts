@@ -1,7 +1,7 @@
 import { SpaceDto, SpaceListDto } from '@/modules/space'
 import { apiClient } from './core/axios'
 
-export class SpaceApi {
+class SpaceApi {
   private client = apiClient
 
   async getSpaceListByAdminId(adminId: string): Promise<SpaceListDto> {
@@ -14,3 +14,5 @@ export class SpaceApi {
     return res.data
   }
 }
+
+export const spaceApi = new SpaceApi()

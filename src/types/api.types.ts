@@ -1,4 +1,4 @@
-import { PostgrestResponse } from '@supabase/supabase-js'
+import { PostgrestResponse, PostgrestSingleResponse } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
 export type ApiResponse<T> = {
@@ -14,4 +14,6 @@ export type ApiDefault = {
 
 export type ApiResponsePromise<T> = Promise<NextResponse<T | ApiDefault>>
 
-export type SupabaseResponse<T> = Promise<PostgrestResponse<T>>
+export type SupabaseResponsePromise<T> = Promise<PostgrestResponse<T>>
+
+export type SupabaseSingleResponsePromise<T> = Promise<PostgrestSingleResponse<T>>

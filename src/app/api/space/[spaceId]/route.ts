@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSpaceInfo } from '@/modules/space/space.model'
-import { SpaceDto } from '@/modules/space/space.dto'
 import { ApiResponsePromise } from '@/types'
+import { getSpaceInfo, SpaceDto } from '@/modules/space'
 
 export const GET = async (
   request: NextRequest,
@@ -28,7 +27,7 @@ export const GET = async (
       return NextResponse.json({ message: '해당 공간을 찾을 수 없습니다.' }, { status: 404 })
     }
 
-    return NextResponse.json(space)
+    return NextResponse.json(space, { status: 200 })
   } catch (e) {
     console.error('Unexpected error fetching space:', e)
     return NextResponse.json(
