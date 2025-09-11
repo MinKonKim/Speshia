@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { AddressForm } from '../shared'
 import { Button } from '../ui'
+import { ImageUploadPreview } from './image-upload-preview'
 
 const spaceFormSchema = z.object({
   name: z.string().min(1, { message: '공간 이름을 입력해주세요.' }),
@@ -27,7 +28,7 @@ const spaceFormSchema = z.object({
     detail: z.string().optional(),
   }),
   maxCapacity: z.coerce.number().min(1, { message: '최대 인원수를 1 이상으로 입력해주세요.' }),
-  image: z.any().optional(),
+  images: z.array(z.any()).optional(),
 })
 
 export type SpaceFormDto = z.infer<typeof spaceFormSchema>
@@ -46,11 +47,10 @@ export default function SpaceAddForm({}: SpaceAddFormProps) {
         detail: '',
       },
       maxCapacity: 0,
-      image: undefined,
+      images: [],
     },
   })
   const params = useParams()
-  const imageRef = form.register('image')
 
   const handleSave = async (data: SpaceFormDto) => {
     // TODO: API 호출 등 실제 데이터 저장 로직 구현
@@ -63,7 +63,7 @@ export default function SpaceAddForm({}: SpaceAddFormProps) {
       status: 'rejected',
       is_active: false,
     }
-    console.log('Saving space data:', spaceData)
+    console.log('Saving space data:', spaceData, 'images:', data.images)
   }
 
   return (
@@ -135,23 +135,12 @@ export default function SpaceAddForm({}: SpaceAddFormProps) {
           )}
         />
 
-        <FormField
+        <ImageUploadPreview
           control={form.control}
-          name="image"
-          render={() => (
-            <FormItem className="grid grid-cols-4 items-center gap-4">
-              <FormLabel className="text-primary-900 text-right">공간 이미지</FormLabel>
-              <FormControl className="col-span-3">
-                <Input
-                  type="file"
-                  {...imageRef}
-                  className="border-secondary-200 focus:border-primary-400 focus:ring-primary-400"
-                />
-              </FormControl>
-              <FormMessage className="col-span-4" />
-            </FormItem>
-          )}
+          getValues={form.getValues}
+          setValue={form.setValue}
         />
+
         <div className="flex justify-end gap-2">
           <Button type="button" variant="outline" onClick={() => form.reset()}>
             취소

@@ -1,27 +1,16 @@
 'use client'
 import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui'
 import { Menu } from 'lucide-react'
-import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { UserNav } from '../shared'
 import { SearchBar } from './search-bar'
 
-// --- Reusable Components ---
-
 const navLinks = [
   { href: '#', label: '예약하기' },
-  { href: '/admin/dashboard/1', label: '관리자' }, // temp adminId
   { href: '#', label: 'About' },
 ]
-
-const handleMySpaceButtonClick = async () => {
-  const session = await getServerSession()
-  if (session?.user.accessToken) {
-    // Redirect to the space registration page if the user is authenticated
-    window.location.href = '/spaces/new'
-  }
-}
 
 const Logo = () => (
   <Link href="/" className="relative h-16 w-28 flex-shrink-0">
@@ -51,47 +40,47 @@ const DesktopNav = () => (
   </nav>
 )
 
-// --- Mobile Navigation ---
-
-const MobileNav = () => (
-  <div className="md:hidden">
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left">
-        <SheetHeader>
-          <SheetTitle>
-            <Logo />
-          </SheetTitle>
-        </SheetHeader>
-        <nav className="mt-8 flex flex-col gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-lg font-medium text-gray-700 hover:text-blue-600"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="mt-auto">
-          <Button className="w-full" onClick={handleMySpaceButtonClick}>
-            내 공간 등록하기
-          </Button>
-        </div>
-      </SheetContent>
-    </Sheet>
-  </div>
-)
-
 // --- Main Header Component ---
 //TODO: [다음작업]공간 등록 페이지 링크 연결하기
 export default function MainHeader() {
+  const router = useRouter()
+
+  const MobileNav = () => (
+    <div className="md:hidden">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <SheetHeader>
+            <SheetTitle>
+              <Logo />
+            </SheetTitle>
+          </SheetHeader>
+          <nav className="mt-8 flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-lg font-medium text-gray-700 hover:text-blue-600"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-auto">
+            <Button className="w-full" onClick={() => router.push('/host-register')}>
+              내 공간 등록하기
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  )
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 shadow-sm backdrop-blur-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -104,7 +93,7 @@ export default function MainHeader() {
 
         <div className="flex items-center gap-4">
           <div className="hidden md:block">
-            <Button onClick={handleMySpaceButtonClick}>내 공간 등록하기</Button>
+            <Button onClick={() => router.push('/host-register')}>내 공간 등록하기</Button>
           </div>
           <div className="hidden md:block">
             <UserNav />

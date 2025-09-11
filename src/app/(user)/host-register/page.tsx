@@ -1,4 +1,4 @@
-'use client'
+
 import { HostRegisterForm } from '@/components/user/host-register-form'
 import { getServerSession } from 'next-auth'
 
