@@ -1,9 +1,19 @@
-
 import { HostRegisterForm } from '@/components/user/host-register-form'
+import { getUserByEmail } from '@/modules/user'
 import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export default async function HostRegisterPage() {
   const session = await getServerSession()
+  if (!session?.user) {
+    redirect('/auth/signin')
+  }
+
+  const user = await getUserByEmail(session.user.email as string)
+
+  if (user.data?.role === 'admin') {
+    redirect(`/admin/${user.data.id}/dashboard`)
+  }
 
   return (
     <div>

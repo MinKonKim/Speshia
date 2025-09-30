@@ -10,7 +10,7 @@ export const GET = async (
   request: NextRequest,
   { params }: Params
 ): ApiResponsePromise<UserDataDto> => {
-  const { email } = params
+  const { email } = await params
   try {
     const result = await getUserByEmail(email)
 
@@ -31,7 +31,7 @@ export const PATCH = async (
   request: NextRequest,
   { params }: Params
 ): ApiResponsePromise<ApiDefault> => {
-  const { email } = params
+  const { email } = await params
   const body = await request.json()
 
   try {

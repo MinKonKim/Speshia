@@ -33,9 +33,7 @@ const spaceFormSchema = z.object({
 
 export type SpaceFormDto = z.infer<typeof spaceFormSchema>
 
-interface SpaceAddFormProps {}
-
-export default function SpaceAddForm({}: SpaceAddFormProps) {
+export default function SpaceAddForm() {
   const form = useForm<SpaceFormDto>({
     resolver: zodResolver(spaceFormSchema),
     defaultValues: {

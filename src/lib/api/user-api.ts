@@ -9,6 +9,11 @@ export class UserApi {
     return res.data
   }
 
+  async getUserByEmail(email: string): Promise<UserDataDto> {
+    const res = await this.client.get<UserDataDto>(`/users/${email}`)
+    return res.data
+  }
+
   async createUser(payload: UserDataInsertDto) {
     await this.client.post<UserDataDto>('/users', payload)
   }

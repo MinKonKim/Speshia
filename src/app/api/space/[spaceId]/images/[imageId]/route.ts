@@ -4,22 +4,20 @@ import type { ApiDefault, ApiResponsePromise } from '@/types'
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { imageId: string } },
+  { params }: { params: { imageId: string } }
 ): ApiResponsePromise<ApiDefault> {
-  const imageId = parseInt(params.imageId, 10)
+  const { imageId } = await params
+  const id = parseInt(imageId, 10)
 
-  if (isNaN(imageId)) {
+  if (isNaN(id)) {
     return NextResponse.json({ message: '유효하지 않은 Image ID입니다.' }, { status: 400 })
   }
 
   try {
-    await deleteSpaceImage(imageId)
+    await deleteSpaceImage(id)
     return NextResponse.json({ message: '성공적으로 이미지를 삭제했습니다.' })
   } catch (error) {
     console.error('Error deleting space image:', error)
-    return NextResponse.json(
-      { message: '이미지 삭제 중 오류가 발생했습니다.' },
-      { status: 500 },
-    )
+    return NextResponse.json({ message: '이미지 삭제 중 오류가 발생했습니다.' }, { status: 500 })
   }
 }

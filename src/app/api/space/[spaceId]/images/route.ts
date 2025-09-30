@@ -7,14 +7,14 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { spaceId: string } }
 ): ApiResponsePromise<SpaceImageDto[]> {
-  const spaceId = parseInt(params.spaceId, 10)
-
-  if (isNaN(spaceId)) {
+  const { spaceId } = await params
+  const id = parseInt(spaceId, 10)
+  if (isNaN(id)) {
     return NextResponse.json({ message: '유효하지 않은 Space ID입니다.' }, { status: 400 })
   }
 
   try {
-    const images = await getSpaceImages(spaceId)
+    const images = await getSpaceImages(id)
     return NextResponse.json(images ?? [])
   } catch (error) {
     console.error('Error fetching space images:', error)
@@ -29,9 +29,10 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { spaceId: string } }
 ): ApiResponsePromise<{ filePath: string } & ApiDefault> {
-  const spaceId = parseInt(params.spaceId, 10)
+  const { spaceId } = await params
+  const id = parseInt(spaceId, 10)
 
-  if (isNaN(spaceId)) {
+  if (isNaN(id)) {
     return NextResponse.json({ message: '유효하지 않은 Space ID입니다.' }, { status: 400 })
   }
 
@@ -43,7 +44,7 @@ export async function POST(
       return NextResponse.json({ message: '파일이 필요합니다.' }, { status: 400 })
     }
 
-    const filePath = await saveSpaceImages(spaceId, file)
+    const filePath = await saveSpaceImages(id, file)
     return NextResponse.json({ message: '성공적으로 이미지를 업로드했습니다.', filePath })
   } catch (error) {
     console.error('Error uploading space image:', error)

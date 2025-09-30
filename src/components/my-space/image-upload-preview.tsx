@@ -1,7 +1,7 @@
 'use client'
 
 import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form'
-import { SpaceFormDto } from './space-add-form'
+import { SpaceFormDto } from './space-create-form'
 import { useEffect, useState } from 'react'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -83,7 +83,7 @@ export function ImageUploadPreview({ control, getValues, setValue }: ImageUpload
                       variant="destructive"
                       size="sm"
                       onClick={() => handleRemoveImage(index)}
-                      className="absolute right-1 top-1 h-6 w-6 p-0"
+                      className="absolute top-1 right-1 h-6 w-6 p-0"
                     >
                       X
                     </Button>
